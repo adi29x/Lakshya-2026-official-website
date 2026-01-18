@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* F1 Racing Design System - Lakshya 2026 */
+
+@layer base {
+  :root {
+    /* Core Racing Colors */
+    --background: 0 0% 5%;
+    --foreground: 0 0% 98%;
+    
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
+    
+    /* Racing Red - Primary */
+    --primary: 3 95% 45%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Carbon - Secondary */
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+    
+    /* Pit Lane Grey */
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    
+    /* Neon Cyan - Accent */
+    --accent: 185 100% 50%;
+    --accent-foreground: 0 0% 5%;
+    
+    /* Warning Yellow */
+    --warning: 45 100% 50%;
+    --warning-foreground: 0 0% 5%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 18%;
+    --input: 0 0% 15%;
+    --ring: 3 95% 45%;
+    
+    --radius: 0.5rem;
+    
+    /* Racing Gradients */
+    --gradient-racing: linear-gradient(135deg, hsl(3, 95%, 45%) 0%, hsl(0, 100%, 30%) 100%);
+    --gradient-carbon: linear-gradient(180deg, hsl(0, 0%, 12%) 0%, hsl(0, 0%, 5%) 100%);
+    --gradient-track: linear-gradient(90deg, hsl(0, 0%, 8%) 0%, hsl(0, 0%, 15%) 50%, hsl(0, 0%, 8%) 100%);
+    --gradient-neon: linear-gradient(135deg, hsl(185, 100%, 50%) 0%, hsl(200, 100%, 50%) 100%);
+    --gradient-speed: linear-gradient(90deg, transparent 0%, hsl(3, 95%, 45%) 50%, transparent 100%);
+    
+    /* Racing Shadows */
+    --shadow-racing: 0 0 30px hsl(3, 95%, 45% / 0.4);
+    --shadow-neon: 0 0 20px hsl(185, 100%, 50% / 0.5);
+    --shadow-card: 0 10px 40px hsl(0, 0%, 0% / 0.5);
+    
+    /* Typography */
+    --font-display: 'Orbitron', sans-serif;
+    --font-body: 'Rajdhani', sans-serif;
+    
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 3 95% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 3 95% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-family: var(--font-body);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  /* Racing Button Styles */
+  .btn-racing {
+    @apply relative overflow-hidden bg-primary text-primary-foreground font-display font-bold uppercase tracking-wider;
+    @apply px-8 py-4 transition-all duration-300;
+    @apply hover:shadow-[0_0_30px_hsl(3,95%,45%/0.6)] hover:scale-105;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  
+  .btn-racing::before {
+    @apply content-[''] absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    @apply translate-x-[-100%] transition-transform duration-500;
+  }
+  
+  .btn-racing:hover::before {
+    @apply translate-x-[100%];
+  }
+  
+  .btn-outline-racing {
+    @apply relative overflow-hidden bg-transparent border-2 border-primary text-primary font-display font-bold uppercase tracking-wider;
+    @apply px-8 py-4 transition-all duration-300;
+    @apply hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_30px_hsl(3,95%,45%/0.4)];
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  
+  /* Track Stripe */
+  .track-stripe {
+    @apply relative;
+  }
+  
+  .track-stripe::after {
+    content: '';
+    @apply absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent;
+  }
+  
+  /* Racing Card */
+  .racing-card {
+    @apply relative bg-card border border-border rounded-lg overflow-hidden;
+    @apply transition-all duration-500 hover:border-primary/50;
+    @apply hover:shadow-[0_0_40px_hsl(3,95%,45%/0.2)];
+  }
+  
+  .racing-card::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent to-primary;
+    @apply opacity-0 transition-opacity duration-300;
+  }
+  
+  .racing-card:hover::before {
+    @apply opacity-100;
+  }
+  
+  /* Speed Lines */
+  .speed-lines {
+    @apply relative overflow-hidden;
+  }
+  
+  .speed-lines::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 100px,
+      hsl(3, 95%, 45% / 0.03) 100px,
+      hsl(3, 95%, 45% / 0.03) 101px
+    );
+  }
+  
+  /* Telemetry Bar */
+  .telemetry-bar {
+    @apply bg-secondary/80 backdrop-blur-md border-y border-border;
+    background-image: linear-gradient(90deg, 
+      hsl(0, 0%, 8%) 0%, 
+      hsl(0, 0%, 12%) 25%,
+      hsl(0, 0%, 12%) 75%,
+      hsl(0, 0%, 8%) 100%
+    );
+  }
+  
+  /* Racing Underline Hover */
+  .racing-link {
+    @apply relative inline-block;
+  }
+  
+  .racing-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+  
+  .racing-link:hover::after {
+    @apply w-full;
+  }
+  
+  .racing-link.active::after {
+    @apply w-full;
+  }
+  
+  /* Checkered Pattern */
+  .checkered {
+    background-image: 
+      linear-gradient(45deg, hsl(0, 0%, 15%) 25%, transparent 25%),
+      linear-gradient(-45deg, hsl(0, 0%, 15%) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, hsl(0, 0%, 15%) 75%),
+      linear-gradient(-45deg, transparent 75%, hsl(0, 0%, 15%) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  }
+  
+  /* Pit Lane Divider */
+  .pit-divider {
+    @apply relative h-px bg-border;
+  }
+  
+  .pit-divider::before {
+    content: '';
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+    @apply w-4 h-4 border-2 border-primary rotate-45;
+  }
+  
+  /* Glow Text */
+  .text-glow {
+    text-shadow: 0 0 20px hsl(3, 95%, 45% / 0.5);
+  }
+  
+  .text-glow-cyan {
+    text-shadow: 0 0 20px hsl(185, 100%, 50% / 0.5);
+  }
+  
+  /* Section Title */
+  .section-title {
+    @apply font-display font-bold uppercase tracking-wider;
+    @apply relative inline-block pb-4;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-20 h-1 bg-primary;
+  }
+  
+  /* Team Color Variants */
+  .team-ferrari { --team-color: 220 100% 50%; }
+  .team-redbull { --team-color: 230 80% 30%; }
+  .team-mercedes { --team-color: 180 100% 35%; }
+  .team-mclaren { --team-color: 24 100% 50%; }
+  .team-alpine { --team-color: 340 100% 50%; }
+  .team-aston-martin { --team-color: 160 80% 35%; }
+  .team-williams { --team-color: 210 100% 50%; }
+  .team-haas { --team-color: 0 0% 50%; }
+  .team-sauber { --team-color: 120 70% 40%; }
+  .team-racing-bulls { --team-color: 210 100% 40%; }
+}
+
+@layer utilities {
+  /* Noise Texture Overlay */
+  .noise-overlay {
+    position: relative;
+  }
+  
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+  
+  /* Gradient Mask */
+  .mask-gradient-b {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  
+  .mask-gradient-t {
+    mask-image: linear-gradient(to top, black 60%, transparent 100%);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(0, 0%, 8%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(3, 95%, 45%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(3, 95%, 55%);
+}
+
+/* Selection */
+::selection {
+  background: hsl(3, 95%, 45% / 0.4);
+  color: white;
+}
